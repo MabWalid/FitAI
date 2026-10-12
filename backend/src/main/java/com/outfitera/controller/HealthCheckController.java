@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * Contrôleur de vérification de l'état de santé du service OutfitEra Backend.
+ * Contrôleur de vérification de l'état de santé du service FitAI.
  */
 @RestController
 @RequestMapping("/health")
@@ -28,11 +28,11 @@ public class HealthCheckController {
     public ResponseEntity<ApiResponse<Map<String, Object>>> checkHealth() {
         Map<String, Object> healthInfo = Map.of(
                 "status", "UP",
-                "application", "OutfitEra Backend",
+                "application", "FitAI Backend",
                 "version", "1.0.0",
                 "javaVersion", System.getProperty("java.version"),
                 "timestamp", System.currentTimeMillis()
         );
-        return ResponseEntity.ok(ApiResponse.success("Le service OutfitEra Backend fonctionne parfaitement", healthInfo));
+        return ResponseEntity.ok(ApiResponse.success("Le service FitAI Backend fonctionne", healthInfo));
     }
 }

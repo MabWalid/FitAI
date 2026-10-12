@@ -4,13 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Point d'entrée principal de l'application OutfitEra Backend.
- * <p>
- * OutfitEra est une plateforme d'essayage virtuel de vêtements enterprise,
- * combinant e-commerce, recommandations IA (Spring AI) et gamification.
- * </p>
- * 
- * @author OutfitEra Team
+ * Point d'entrée principal de l'API FitAI.
+ *
+ * @author Walid
  * @version 1.0.0
  */
 @SpringBootApplication

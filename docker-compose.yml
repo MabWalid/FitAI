@@ -23,7 +23,7 @@ services:
     container_name: outfitera-pgadmin
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@outfitera.com
+      PGADMIN_DEFAULT_EMAIL: admin@fitai.dev
       PGADMIN_DEFAULT_PASSWORD: adminpassword
     ports:
       - "5050:80"
