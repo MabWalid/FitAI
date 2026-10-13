@@ -36,10 +36,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
               AND (:categoryId IS NULL OR c.id = :categoryId)
               AND (:clothingCategory IS NULL OR c.clothingCategory = :clothingCategory)
               AND (
-                    :q IS NULL
-                    OR LOWER(p.name) LIKE LOWER(CONCAT('%', :q, '%'))
-                    OR LOWER(COALESCE(p.brand, '')) LIKE LOWER(CONCAT('%', :q, '%'))
-                    OR LOWER(p.sku) LIKE LOWER(CONCAT('%', :q, '%'))
+                    LOWER(p.name) LIKE :pattern
+                    OR LOWER(COALESCE(p.brand, '')) LIKE :pattern
+                    OR LOWER(p.sku) LIKE :pattern
                   )
               AND (:minPrice IS NULL OR p.price >= :minPrice)
               AND (:maxPrice IS NULL OR p.price <= :maxPrice)
@@ -48,7 +47,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             @Param("active") Boolean active,
             @Param("categoryId") Long categoryId,
             @Param("clothingCategory") ClothingCategory clothingCategory,
-            @Param("q") String q,
+            @Param("pattern") String pattern,
             @Param("minPrice") BigDecimal minPrice,
             @Param("maxPrice") BigDecimal maxPrice,
             Pageable pageable);

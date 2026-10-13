@@ -26,6 +26,7 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @Service
@@ -49,9 +50,11 @@ public class ProductServiceImpl implements ProductService {
             BigDecimal maxPrice,
             Pageable pageable) {
 
-        String query = StringUtils.hasText(q) ? q.trim() : null;
+        String pattern = StringUtils.hasText(q)
+                ? "%" + q.trim().toLowerCase(Locale.ROOT) + "%"
+                : "%";
         Page<Product> page = productRepository.search(
-                active, categoryId, clothingCategory, query, minPrice, maxPrice, pageable);
+                active, categoryId, clothingCategory, pattern, minPrice, maxPrice, pageable);
 
         return PagedResponse.<ProductResponse>builder()
                 .content(page.getContent().stream().map(catalogMapper::toProductResponse).toList())
