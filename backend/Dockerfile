@@ -19,11 +19,11 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # Création d'un utilisateur système non-root pour des raisons de sécurité
-RUN addgroup -S outfitera && adduser -S outfitera -G outfitera
-USER outfitera:outfitera
+RUN addgroup -S fitai && adduser -S fitai -G fitai
+USER fitai:fitai
 
 # Copie du JAR compilé depuis l'étape de build
-COPY --from=build /app/target/outfitera-backend-1.0.0-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/fitai-backend-1.0.0-SNAPSHOT.jar app.jar
 
 # Port d'exposition du serveur
 EXPOSE 8080

@@ -4,23 +4,23 @@ services:
   # Base de données PostgreSQL 16
   postgres:
     image: postgres:16-alpine
-    container_name: outfitera-postgres
+    container_name: fitai-postgres
     restart: always
     environment:
-      POSTGRES_DB: outfitera_db
-      POSTGRES_USER: outfitera_user
-      POSTGRES_PASSWORD: outfitera_password
+      POSTGRES_DB: fitai_db
+      POSTGRES_USER: fitai_user
+      POSTGRES_PASSWORD: fitai_password
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - outfitera-network
+      - fitai-network
 
   # Interface d'administration PgAdmin 4
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: outfitera-pgadmin
+    container_name: fitai-pgadmin
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@fitai.dev
@@ -30,14 +30,14 @@ services:
     depends_on:
       - postgres
     networks:
-      - outfitera-network
+      - fitai-network
 
   # Service Backend Spring Boot
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: outfitera-backend
+    container_name: fitai-backend
     restart: always
     ports:
       - "8080:8080"
@@ -45,16 +45,16 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
       - DB_HOST=postgres
       - DB_PORT=5432
-      - DB_NAME=outfitera_db
-      - DB_USER=outfitera_user
-      - DB_PASSWORD=outfitera_password
+      - DB_NAME=fitai_db
+      - DB_USER=fitai_user
+      - DB_PASSWORD=fitai_password
     depends_on:
       - postgres
     networks:
-      - outfitera-network
+      - fitai-network
 
 networks:
-  outfitera-network:
+  fitai-network:
     driver: bridge
 
 volumes:

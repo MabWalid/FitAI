@@ -7,9 +7,11 @@
 
 **FitAI** est une API de mode : catalogue de vêtements + (ensuite) un **styliste IA** qui propose des tenues selon l’occasion, le budget et la météo, à partir de **vrais produits** en base.
 
-> Projet étudiant, écrit from scratch. Ancien nom du repo : OutfitEra.
+> Projet étudiant, écrit from scratch.
 
 ---
+
+
 
 ## Ce qui marche aujourd’hui
 
@@ -20,6 +22,8 @@
 - Données de démo au premier démarrage (profil `dev`)
 - Swagger, PostgreSQL via Docker, tests unitaires auth + catalogue
 
+
+
 ## Prochaines étapes
 
 1. Styliste IA (`POST /ai/stylist`) branché sur le catalogue
@@ -28,18 +32,26 @@
 
 ---
 
+
+
 ## Stack
 
-| Couche | Techno |
-|--------|--------|
-| API | Java 21, Spring Boot 3.3, Spring Security 6, JWT |
-| Données | PostgreSQL 16, Spring Data JPA |
-| Docs | OpenAPI 3 / Swagger UI |
-| Infra locale | Docker Compose |
+
+| Couche       | Techno                                           |
+| ------------ | ------------------------------------------------ |
+| API          | Java 21, Spring Boot 3.3, Spring Security 6, JWT |
+| Données      | PostgreSQL 16, Spring Data JPA                   |
+| Docs         | OpenAPI 3 / Swagger UI                           |
+| Infra locale | Docker Compose                                   |
+
 
 ---
 
+
+
 ## Démarrage
+
+
 
 ### Prérequis
 
@@ -47,11 +59,15 @@
 - Maven 3.9+
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
+
+
 ### 1. Base de données
 
 ```bash
 docker compose up -d postgres pgadmin
 ```
+
+
 
 ### 2. Backend
 
@@ -60,12 +76,16 @@ cd backend
 mvn spring-boot:run
 ```
 
-| Service | URL |
-|---------|-----|
-| API | `http://localhost:8080/api/v1` |
-| Swagger | `http://localhost:8080/api/v1/swagger-ui.html` |
-| Health | `http://localhost:8080/api/v1/health` |
-| PgAdmin | `http://localhost:5050` (admin@fitai.dev / adminpassword) |
+
+| Service | URL                                                                                 |
+| ------- | ----------------------------------------------------------------------------------- |
+| API     | `http://localhost:8080/api/v1`                                                      |
+| Swagger | `http://localhost:8080/api/v1/swagger-ui.html`                                      |
+| Health  | `http://localhost:8080/api/v1/health`                                               |
+| PgAdmin | `http://localhost:5050` ([admin@fitai.dev](mailto:admin@fitai.dev) / adminpassword) |
+
+
+
 
 ### Compte admin de démo (créé au 1er lancement)
 
@@ -74,6 +94,8 @@ mvn spring-boot:run
 - Mot de passe : `Admin1234!`
 
 ---
+
+
 
 ## API catalogue (extraits)
 
@@ -93,10 +115,12 @@ Dans Swagger : Authorize → `Bearer <accessToken>` après `/auth/login`.
 
 ---
 
+
+
 ## Architecture
 
 ```text
-backend/src/main/java/com/outfitera/
+backend/src/main/java/com/fitai/
 ├── config/       # Security, CORS, OpenAPI, JPA
 ├── controller/   # REST
 ├── dto/          # Requests / Responses
@@ -106,14 +130,15 @@ backend/src/main/java/com/outfitera/
 └── service/
 ```
 
-Le package Java `com.outfitera` est historique ; le produit s’appelle **FitAI**.
+Package Java : `com.fitai`.
 
 ---
 
+
+
 ## GitHub
 
-Si le remote s’appelle encore `OutfitEra`, renomme le repo en `FitAI` sur GitHub puis :
-
-```bash
-git remote set-url origin git@github.com:MabWalid/FitAI.git
+```text
+https://github.com/MabWalid/FitAI
 ```
+
