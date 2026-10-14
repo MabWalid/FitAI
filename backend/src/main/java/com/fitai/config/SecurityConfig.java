@@ -73,7 +73,7 @@ public class SecurityConfig {
                 // Règles d'autorisation des endpoints
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_URLS).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/products/**", "/categories/**", "/sizes/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/products/**", "/categories/**", "/sizes/**", "/looks/public", "/looks/*").permitAll()
                         .anyRequest().authenticated())
 
                 // Fournisseur d'authentification
