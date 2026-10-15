@@ -17,64 +17,16 @@ export default function Catalog() {
   useEffect(() => {
     // Fetch products from API
     fetch('http://localhost:8080/api/v1/products')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Erreur réseau');
+        return res.json();
+      })
       .then(data => {
         setProducts(data);
         setLoading(false);
       })
       .catch(err => {
-        console.error("Failed to fetch products, using mock data", err);
-        // Fallback mock data for beautiful UI demonstration
-        setProducts([
-          {
-            id: 1,
-            name: "Veste en Cuir Minimaliste",
-            description: "Une veste en cuir noir de qualité supérieure.",
-            price: 199.99,
-            imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
-            category: { name: "Veste" }
-          },
-          {
-            id: 2,
-            name: "T-shirt Essentiel Blanc",
-            description: "Le t-shirt parfait en coton bio.",
-            price: 29.99,
-            imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
-            category: { name: "Haut" }
-          },
-          {
-            id: 3,
-            name: "Pantalon Chino Beige",
-            description: "Coupe ajustée, parfait pour le bureau ou le week-end.",
-            price: 59.99,
-            imageUrl: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&q=80&w=800",
-            category: { name: "Bas" }
-          },
-          {
-            id: 4,
-            name: "Sneakers Urbaines",
-            description: "Confortables et élégantes pour la ville.",
-            price: 129.99,
-            imageUrl: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=800",
-            category: { name: "Chaussures" }
-          },
-          {
-            id: 5,
-            name: "Manteau Long en Laine",
-            description: "L'élégance absolue pour l'hiver.",
-            price: 249.99,
-            imageUrl: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&q=80&w=800",
-            category: { name: "Manteau" }
-          },
-          {
-            id: 6,
-            name: "Chemise Oxford Bleue",
-            description: "Un classique intemporel.",
-            price: 49.99,
-            imageUrl: "https://images.unsplash.com/photo-1596755094514-f87e32f85e2c?auto=format&fit=crop&q=80&w=800",
-            category: { name: "Haut" }
-          }
-        ]);
+        console.error("Failed to fetch products", err);
         setLoading(false);
       });
   }, []);
