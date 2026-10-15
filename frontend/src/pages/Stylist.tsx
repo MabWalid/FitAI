@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
-import { Sparkles, CloudRain, Sun, Cloud, ThermometerSun, Briefcase, Coffee, GlassWater, Loader2 } from 'lucide-react';
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  category: { name: string };
-}
+import { Sparkles, CloudRain, Sun, Cloud, ThermometerSun, Briefcase, Coffee, GlassWater, Loader2, ShoppingBag } from 'lucide-react';
+import { useCartStore, Product } from '../store/cartStore';
 
 interface StylistResponse {
   message: string;
@@ -23,6 +15,9 @@ interface StylistResponse {
 export default function Stylist() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<StylistResponse | null>(null);
+  const addItem = useCartStore(state => state.addItem);
+  const toggleCart = useCartStore(state => state.toggleCart);
+
   const [formData, setFormData] = useState({
     occasion: 'CASUAL',
     weather: 'MILD',
@@ -40,6 +35,11 @@ export default function Stylist() {
     { id: 'MILD', label: 'Doux', icon: Cloud },
     { id: 'COLD', label: 'Froid', icon: CloudRain },
   ];
+
+  const handleAddOutfitToCart = (outfitItems: Product[]) => {
+    outfitItems.forEach(item => addItem(item));
+    toggleCart();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -267,8 +267,12 @@ export default function Stylist() {
                         </div>
                       ))}
                     </div>
-                    <button className="w-full mt-6 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-900 transition-colors">
-                      Ajouter la tenue au panier
+                    <button 
+                      onClick={() => handleAddOutfitToCart(outfit.items)}
+                      className="w-full mt-6 flex items-center justify-center space-x-2 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-900 transition-colors"
+                    >
+                      <ShoppingBag size={18} />
+                      <span>Ajouter la tenue au panier</span>
                     </button>
                   </div>
                 </div>
