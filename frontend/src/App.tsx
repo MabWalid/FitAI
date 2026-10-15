@@ -4,12 +4,15 @@ import { Shirt, Sparkles, ShoppingBag, User, ArrowRight } from 'lucide-react';
 import Catalog from './pages/Catalog';
 import Stylist from './pages/Stylist';
 import Login from './pages/Login';
+import CartDrawer from './components/CartDrawer';
+import { useCartStore } from './store/cartStore';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen flex flex-col bg-white selection:bg-black selection:text-white">
         <Navbar />
+        <CartDrawer />
 
         {/* Main Content */}
         <main className="flex-grow pt-20">
@@ -39,6 +42,7 @@ function App() {
 function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const { toggleCart, getItemCount } = useCartStore();
 
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${isHome ? 'bg-white/80 backdrop-blur-md border-b border-gray-100' : 'bg-white border-b border-gray-100'}`}>
@@ -64,9 +68,16 @@ function Navbar() {
           </nav>
 
           <div className="flex items-center space-x-6">
-            <button className="text-gray-400 hover:text-black transition-colors relative">
+            <button 
+              onClick={toggleCart}
+              className="text-gray-400 hover:text-black transition-colors relative"
+            >
               <ShoppingBag size={22} />
-              <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+              {getItemCount() > 0 && (
+                <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                  {getItemCount()}
+                </span>
+              )}
             </button>
             <Link to="/login" className="hidden md:flex items-center space-x-2 bg-black hover:bg-gray-800 text-white px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105">
               <User size={18} />
