@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Filter, Search, ChevronDown, ShoppingBag } from 'lucide-react';
-import { useCartStore, Product } from '../store/cartStore';
+import { useCartStore, type Product } from '../store/cartStore';
 
 export default function Catalog() {
   const [products, setProducts] = useState<Product[]>([]);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, CloudRain, Sun, Cloud, ThermometerSun, Briefcase, Coffee, GlassWater, Loader2, ShoppingBag } from 'lucide-react';
-import { useCartStore, Product } from '../store/cartStore';
+import { useCartStore, type Product } from '../store/cartStore';
 
 interface StylistResponse {
   message: string;
