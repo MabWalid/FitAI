@@ -1,11 +1,17 @@
 import { create } from 'zustand';
 
+export interface ProductImage {
+  id: number;
+  imageUrl: string;
+  primary: boolean;
+}
+
 export interface Product {
   id: number;
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  images?: ProductImage[];
   category: { name: string };
 }
 

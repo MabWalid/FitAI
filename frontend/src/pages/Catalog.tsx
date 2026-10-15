@@ -21,8 +21,13 @@ export default function Catalog() {
         if (!res.ok) throw new Error('Erreur réseau');
         return res.json();
       })
-      .then(data => {
-        setProducts(data);
+      .then(response => {
+        // The backend returns { success: true, data: { content: [...] } }
+        if (response.success && response.data && response.data.content) {
+          setProducts(response.data.content);
+        } else if (Array.isArray(response)) {
+          setProducts(response);
+        }
         setLoading(false);
       })
       .catch(err => {
@@ -76,7 +81,7 @@ export default function Catalog() {
             <div key={product.id} className="group cursor-pointer">
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 mb-4">
                 <img 
-                  src={product.imageUrl} 
+                  src={product.images && product.images.length > 0 ? product.images[0].imageUrl : "https://via.placeholder.com/400x600?text=Pas+d'image"} 
                   alt={product.name}
                   className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-out"
                 />

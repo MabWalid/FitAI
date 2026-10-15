@@ -51,7 +51,7 @@ export default function CartDrawer() {
                 <div key={item.product.id} className="flex gap-4 group">
                   <div className="w-24 h-32 bg-gray-100 rounded-xl overflow-hidden flex-shrink-0">
                     <img 
-                      src={item.product.imageUrl} 
+                      src={item.product.images && item.product.images.length > 0 ? item.product.images[0].imageUrl : "https://via.placeholder.com/400x600"} 
                       alt={item.product.name} 
                       className="w-full h-full object-cover" 
                     />

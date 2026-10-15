@@ -234,7 +234,7 @@ export default function Stylist() {
                         <div key={item.id} className="group">
                           <div className="aspect-[3/4] rounded-xl overflow-hidden bg-gray-100 mb-3 relative">
                             <img 
-                              src={item.imageUrl} 
+                              src={item.images && item.images.length > 0 ? item.images[0].imageUrl : "https://via.placeholder.com/400x600"} 
                               alt={item.name}
                               className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                             />
