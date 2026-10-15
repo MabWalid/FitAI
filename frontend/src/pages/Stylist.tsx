@@ -61,28 +61,10 @@ export default function Stylist() {
       setResult(data);
     } catch (error) {
       console.error("Erreur:", error);
-      // Fallback mock data if backend is down
-      setTimeout(() => {
-        setResult({
-          message: "Voici 2 suggestions de tenues basées sur vos critères.",
-          outfits: [
-            {
-              name: "Look Minimaliste Urbain",
-              description: "Une tenue parfaite pour la ville, alliant confort et élégance.",
-              totalPrice: 189.98,
-              items: [
-                { id: 2, name: "T-shirt Essentiel Blanc", description: "Coton bio", price: 29.99, imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800", category: { name: "Haut" } },
-                { id: 3, name: "Pantalon Chino Beige", description: "Coupe ajustée", price: 59.99, imageUrl: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&q=80&w=800", category: { name: "Bas" } },
-                { id: 4, name: "Sneakers Urbaines", description: "Confortables", price: 99.99, imageUrl: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=800", category: { name: "Chaussures" } }
-              ]
-            }
-          ]
-        });
-        setLoading(false);
-      }, 1500);
-      return;
+      alert("Impossible de contacter le styliste IA. Vérifiez que le backend est allumé.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
