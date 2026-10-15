@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Filter, Search, ChevronDown } from 'lucide-react';
-
-// Types
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  category: { name: string };
-}
+import { Filter, Search, ChevronDown, ShoppingBag } from 'lucide-react';
+import { useCartStore, Product } from '../store/cartStore';
 
 export default function Catalog() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const addItem = useCartStore(state => state.addItem);
+  const toggleCart = useCartStore(state => state.toggleCart);
+
+  const handleAddToCart = (product: Product, e: React.MouseEvent) => {
+    e.stopPropagation();
+    addItem(product);
+    toggleCart();
+  };
 
   useEffect(() => {
     // Fetch products from API
@@ -130,8 +129,12 @@ export default function Catalog() {
                   className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
-                <button className="absolute bottom-4 left-1/2 transform -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-white text-black px-6 py-3 rounded-full font-medium text-sm shadow-lg hover:bg-gray-50">
-                  Aperçu rapide
+                <button 
+                  onClick={(e) => handleAddToCart(product, e)}
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-black text-white px-6 py-3 rounded-full font-medium text-sm shadow-lg hover:bg-gray-900 flex items-center space-x-2 w-max"
+                >
+                  <ShoppingBag size={16} />
+                  <span>Ajouter au panier</span>
                 </button>
               </div>
               <div className="flex justify-between items-start">
