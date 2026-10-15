@@ -2,11 +2,12 @@ package com.fitai.service.impl;
 
 import com.fitai.dto.CartDto;
 import com.fitai.dto.CartItemDto;
-import com.fitai.dto.CategoryDto;
-import com.fitai.dto.ProductDto;
-import com.fitai.model.Cart;
-import com.fitai.model.CartItem;
-import com.fitai.model.Product;
+import com.fitai.dto.catalog.CategoryResponse;
+import com.fitai.dto.catalog.ProductResponse;
+import com.fitai.dto.catalog.ProductImageResponse;
+import com.fitai.entity.Cart;
+import com.fitai.entity.CartItem;
+import com.fitai.entity.Product;
 import com.fitai.repository.CartRepository;
 import com.fitai.repository.ProductRepository;
 import com.fitai.service.CartService;
@@ -95,13 +96,19 @@ public class CartServiceImpl implements CartService {
             CartItemDto.builder()
                 .id(item.getId())
                 .quantity(item.getQuantity())
-                .product(ProductDto.builder()
+                .product(ProductResponse.builder()
                         .id(item.getProduct().getId())
                         .name(item.getProduct().getName())
                         .description(item.getProduct().getDescription())
                         .price(item.getProduct().getPrice())
-                        .imageUrl(item.getProduct().getImageUrl())
-                        .category(CategoryDto.builder()
+                        .images(item.getProduct().getImages().stream().map(img -> 
+                            ProductImageResponse.builder()
+                                .id(img.getId())
+                                .imageUrl(img.getImageUrl())
+                                .primary(img.isPrimary())
+                                .build()
+                        ).collect(Collectors.toList()))
+                        .category(CategoryResponse.builder()
                                 .id(item.getProduct().getCategory().getId())
                                 .name(item.getProduct().getCategory().getName())
                                 .build())

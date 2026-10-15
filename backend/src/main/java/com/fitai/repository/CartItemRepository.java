@@ -1,6 +1,6 @@
 package com.fitai.repository;
 
-import com.fitai.model.CartItem;
+import com.fitai.entity.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
