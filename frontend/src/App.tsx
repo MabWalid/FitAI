@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Shirt, Sparkles, ShoppingBag, User, ArrowRight } from 'lucide-react';
 import Catalog from './pages/Catalog';
@@ -8,6 +8,12 @@ import CartDrawer from './components/CartDrawer';
 import { useCartStore } from './store/cartStore';
 
 function App() {
+  const fetchCart = useCartStore(state => state.fetchCart);
+
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
   return (
     <Router>
       <div className="min-h-screen flex flex-col bg-white selection:bg-black selection:text-white">
